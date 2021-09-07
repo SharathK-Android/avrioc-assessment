@@ -7,7 +7,7 @@ sealed class DataResult<T> (
 ){
     class Success<T>(data: T) : DataResult<T>(data)
 
-    class Error<T>(message: String?) : DataResult<T>(message = message)
+    class Error<T>(message: String? = null) : DataResult<T>(message = message)
 
     class Loading<T>(isLoading: Boolean) : DataResult<T>(isLoading = isLoading)
 }

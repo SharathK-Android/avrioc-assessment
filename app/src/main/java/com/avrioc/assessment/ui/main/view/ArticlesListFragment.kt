@@ -22,8 +22,8 @@ class ArticlesListFragment : Fragment() {
         fun newInstance() = ArticlesListFragment()
     }
 
-    private lateinit var viewModel: ArticlesViewModel
-    private lateinit var binding: MainFragmentBinding
+    lateinit var viewModel: ArticlesViewModel
+    lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
