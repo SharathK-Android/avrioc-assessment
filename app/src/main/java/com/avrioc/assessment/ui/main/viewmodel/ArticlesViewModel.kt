@@ -10,13 +10,13 @@ import com.avrioc.assessment.ui.main.repository.ArticlesRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ArticlesViewModel : ViewModel() {
+class ArticlesViewModel @Inject constructor(private val repository: ArticlesRepository): ViewModel() {
 
     val liveData = MutableLiveData<DataResult<ArticlesResponse>>()
     var loadingBarObservable :ObservableBoolean = ObservableBoolean(false)
     private var disposable: Disposable? = null
-    private val repository = ArticlesRepository.getInstance()
 
     init {
         fetchArticlesData()

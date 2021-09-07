@@ -14,9 +14,14 @@ import com.avrioc.assessment.R
 import com.avrioc.assessment.databinding.MainFragmentBinding
 import com.avrioc.assessment.ui.main.viewmodel.ArticlesViewModel
 import com.avrioc.assessment.ui.main.utils.DataResult
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class ArticlesListFragment : Fragment() {
+class ArticlesListFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
         fun newInstance() = ArticlesListFragment()
@@ -39,7 +44,7 @@ class ArticlesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ArticlesViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ArticlesViewModel::class.java)
         binding.viewModel = viewModel
         initObservers()
     }
