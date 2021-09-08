@@ -7,6 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val API_END_POINT = "mostviewed/{section}/{period}.json"
+const val BASE_URL = "https://api.nytimes.com/svc/mostpopular/v2/"
 private const val SECTION = "section"
 private const val PERIOD = "period"
 private const val API_KEY = "api-key"

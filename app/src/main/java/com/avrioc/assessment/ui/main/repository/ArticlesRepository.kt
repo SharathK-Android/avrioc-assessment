@@ -1,7 +1,6 @@
 package com.avrioc.assessment.ui.main.repository
 
 import com.avrioc.assessment.ui.main.api.ArticlesApi
-import com.avrioc.assessment.ui.main.api.RetrofitBuilder
 import com.avrioc.assessment.ui.main.data.ArticlesResponse
 import io.reactivex.Single
 import javax.inject.Inject

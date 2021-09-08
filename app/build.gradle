@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-
+    id 'jacoco'
 }
 
 android {
@@ -44,6 +44,12 @@ android {
 
     testOptions {
         unitTests {
+            all {
+                jvmArgs '-noverify', '-ea'
+                jacoco {
+                    includeNoLocationClasses = true
+                }
+            }
             includeAndroidResources = true
         }
     }
@@ -84,4 +90,38 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class',
+                      '**/R$*.class',
+                      '**/BuildConfig.*',
+                      '**/Manifest*.*',
+                      '**/*Test*.*',
+                      'android/**/*.*',
+                      '**/di/*',
+                      '**/*Binding*.*',
+                      '**/*BR*.*',
+                      '**/*$Lambda$*.*',
+                      '**/*Companion*.*',
+                      '**/*MapperImpl*.*',
+                      '**/data/*']
+
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    def javaTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes", excludes: fileFilter)
+    def kotlinTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+
+
+    getClassDirectories().from(files([javaTree, kotlinTree]))
+    getSourceDirectories().from(files([mainSrc]))
+    getExecutionData().from(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
 }

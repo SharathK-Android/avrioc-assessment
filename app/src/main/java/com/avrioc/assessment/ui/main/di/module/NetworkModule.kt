@@ -1,6 +1,7 @@
 package com.avrioc.assessment.ui.main.di.module
 
 import com.avrioc.assessment.ui.main.api.ArticlesApi
+import com.avrioc.assessment.ui.main.api.BASE_URL
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -25,7 +26,7 @@ class NetworkModule {
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit
     {
         return Retrofit.Builder()
-            .baseUrl("https://api.nytimes.com/svc/mostpopular/v2/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
